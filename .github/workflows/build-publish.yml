@@ -13,10 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Rust
-        uses: rust-lang/rustup@v1
-        with:
-          toolchain: stable  # Use the stable Rust toolchain
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
 
       - name: Build the project
         run: cargo build --release
@@ -27,7 +24,7 @@ jobs:
           copy target\release\find-process-or-windows-title.exe release\
           
       - name: Upload the executable
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: find-process-or-windows-title
           path: release\find-process-or-windows-title.exe
