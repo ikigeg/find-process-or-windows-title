@@ -1,0 +1,33 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  build:
+    runs-on: windows-latest  # Use the latest Windows runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: rust-lang/rustup@v1
+        with:
+          toolchain: stable  # Use the stable Rust toolchain
+
+      - name: Build the project
+        run: cargo build --release
+
+      - name: Publish the executable
+        run: |
+          mkdir -p release
+          copy target\release\find-process-or-windows-title.exe release\
+          
+      - name: Upload the executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: find-process-or-windows-title
+          path: release\find-process-or-windows-title.exe
