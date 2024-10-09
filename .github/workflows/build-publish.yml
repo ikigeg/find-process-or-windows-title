@@ -20,8 +20,13 @@ jobs:
 
       - name: Publish the executable
         run: |
-          mkdir -p release
-          copy target\x86_64-pc-windows-gnu\release\find-process-or-window-title.exe release\
+          if (Test-Path target\x86_64-pc-windows-gnu\release\find-process-or-window-title.exe) {
+              mkdir release
+              copy target\x86_64-pc-windows-gnu\release\find-process-or-window-title.exe release\
+          } else {
+              Write-Host "Executable not found!"
+              exit 1
+          }
           
       - name: Upload the executable
         uses: actions/upload-artifact@v4
