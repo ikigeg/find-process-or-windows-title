@@ -21,6 +21,8 @@ jobs:
       - name: Publish the executable
         run: |
           dir
+          dir target
+          dir target\release
           mkdir -p release
           copy target\release\find-process-or-windows-title.exe release\
           
